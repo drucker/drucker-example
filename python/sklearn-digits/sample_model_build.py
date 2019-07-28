@@ -7,9 +7,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
 from sklearn.externals import joblib
+from app import MyApp
 
 
-output_filepath = Path('model/default.model')
+app = MyApp()
+app.load_config_file("./settings.yml")
+output_filepath = Path(app.config.MODEL_FILE_PATH)
+kubernetes_mode = app.config.KUBERNETES_MODE or False
 
 
 def run():
@@ -27,7 +31,7 @@ def run():
 
 
 if __name__ == '__main__':
-    if not output_filepath.exists():
+    if not kubernetes_mode and not output_filepath.exists():
         run()
     else:
         print("Model already exist. Finish!")
