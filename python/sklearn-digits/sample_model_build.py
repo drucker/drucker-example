@@ -34,4 +34,4 @@ if __name__ == '__main__':
     if not kubernetes_mode and not output_filepath.exists():
         run()
     else:
-        print("Model already exist. Finish!")
+        print("No need to create model. Finish!")
